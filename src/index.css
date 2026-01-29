@@ -1,0 +1,138 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Food Restaurant E-Commerce Design System
+   Primary: Warm Orange - appetite-stimulating
+   Secondary: Deep Red, Cream/Beige, Dark Brown
+   All colors in HSL format
+*/
+
+@layer base {
+  :root {
+    /* Warm food-themed colors */
+    --background: 30 100% 99%;
+    --foreground: 24 55% 15%;
+
+    --card: 30 100% 98%;
+    --card-foreground: 24 55% 15%;
+
+    --popover: 30 100% 98%;
+    --popover-foreground: 24 55% 15%;
+
+    /* Primary - Warm Orange */
+    --primary: 24 95% 53%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary - Cream/Beige */
+    --secondary: 45 100% 94%;
+    --secondary-foreground: 24 55% 15%;
+
+    /* Muted - Light Cream */
+    --muted: 45 50% 95%;
+    --muted-foreground: 24 30% 40%;
+
+    /* Accent - Deep Red */
+    --accent: 0 72% 51%;
+    --accent-foreground: 0 0% 100%;
+
+    /* Destructive */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Borders & Inputs */
+    --border: 30 30% 88%;
+    --input: 30 30% 88%;
+    --ring: 24 95% 53%;
+
+    --radius: 0.75rem;
+
+    /* Additional food-themed tokens */
+    --cream: 45 100% 94%;
+    --brown: 24 55% 20%;
+    --warm-gradient: linear-gradient(135deg, hsl(24, 95%, 53%) 0%, hsl(0, 72%, 51%) 100%);
+
+    /* Sidebar */
+    --sidebar-background: 24 55% 15%;
+    --sidebar-foreground: 45 100% 94%;
+    --sidebar-primary: 24 95% 53%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 24 45% 25%;
+    --sidebar-accent-foreground: 45 100% 94%;
+    --sidebar-border: 24 45% 25%;
+    --sidebar-ring: 24 95% 53%;
+  }
+
+  .dark {
+    --background: 24 55% 8%;
+    --foreground: 45 100% 94%;
+
+    --card: 24 55% 10%;
+    --card-foreground: 45 100% 94%;
+
+    --popover: 24 55% 10%;
+    --popover-foreground: 45 100% 94%;
+
+    --primary: 24 95% 53%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 24 45% 20%;
+    --secondary-foreground: 45 100% 94%;
+
+    --muted: 24 45% 15%;
+    --muted-foreground: 30 20% 60%;
+
+    --accent: 0 72% 51%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 62% 45%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 24 45% 20%;
+    --input: 24 45% 20%;
+    --ring: 24 95% 53%;
+
+    --sidebar-background: 24 55% 6%;
+    --sidebar-foreground: 45 100% 94%;
+    --sidebar-primary: 24 95% 53%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 24 45% 15%;
+    --sidebar-accent-foreground: 45 100% 94%;
+    --sidebar-border: 24 45% 15%;
+    --sidebar-ring: 24 95% 53%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', Georgia, serif;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--warm-gradient);
+  }
+
+  .bg-warm-gradient {
+    background-image: var(--warm-gradient);
+  }
+
+  .hover-lift {
+    @apply transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg;
+  }
+
+  .food-card {
+    @apply rounded-xl bg-card shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden;
+  }
+}

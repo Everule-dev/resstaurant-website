@@ -1,0 +1,71 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  email     String   @unique
+  password  String
+  name      String
+  phone     String?
+  role      String   @default("user") // "user" or "admin"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  orders    Order[]
+  reservations Reservation[]
+}
+
+model MenuItem {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  description String
+  price       Float
+  image       String
+  category    String
+  isPopular   Boolean  @default(false)
+  isAvailable Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  orderItems  OrderItem[]
+}
+
+model Order {
+  id        String      @id @default(auto()) @map("_id") @db.ObjectId
+  user      User        @relation(fields: [userId], references: [id])
+  userId    String      @db.ObjectId
+  status    String      @default("pending") // pending, preparing, ready, delivered
+  total     Float
+  items     OrderItem[]
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+}
+
+model OrderItem {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  order      Order    @relation(fields: [orderId], references: [id])
+  orderId    String   @db.ObjectId
+  menuItem   MenuItem @relation(fields: [menuItemId], references: [id])
+  menuItemId String   @db.ObjectId
+  quantity   Int
+  price      Float
+}
+
+model Reservation {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  user      User?    @relation(fields: [userId], references: [id])
+  userId    String?  @db.ObjectId // Optional, guest reservations allowed? Assuming yes based on typical flows, or forced auth. Let's make it optional for flexibility, or strict if auth required. Plan said auth required.
+  name      String
+  email     String
+  phone     String
+  date      DateTime
+  time      String
+  partySize Int
+  status    String   @default("confirmed") // confirmed, cancelled
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
